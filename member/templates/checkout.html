@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>checkout-page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .Navbar-1 {
+            display: flex;
+            flex-direction: row;
+            background-color: whitesmoke;
+            position: fixed;
+            width: 100%;
+            z-index: 1;
+            background: linear-gradient(to left, #33ccff 0%, #ff99cc 100%);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            top: 0;
+
+        }
+
+        .Logg a {
+            font-size: 2.5vw;
+            text-decoration: none;
+            color: black;
+        }
+
+        .Logg a:hover {
+            color: grey;
+        }
+
+        .Navbar-2 ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 15%;
+            background-color: #f1f1f1;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .Navbar-2 li a {
+            display: block;
+            color: #000;
+            padding: 8px 16px;
+            text-decoration: none;
+            font-size: 2.5vw;
+        }
+
+        .Navbar-2 li a.active {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        .Navbar-2 li a:hover:not(.active) {
+            background-color: #555;
+            color: white;
+        }
+
+        .Navbar-2 {
+            position: fixed;
+            margin-top: 10%;
+            top: 0;
+        }
+
+        .stt1 {
+            font-size: 2vw;
+            background-color: #555;
+            color: white;
+            text-decoration: none;
+            padding-top: 1vh;
+            padding-bottom: 1vh;
+            padding-left: 1vw;
+            padding-right: 1vw;
+            border-radius: 10px;
+
+
+        }
+
+        .bbutton {
+
+            display: flex;
+            flex-direction: column;
+            margin: 0 30vw;
+            text-align: center;
+
+
+
+        }
+
+        .bbutton button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 4px;
+            text-align: center;
+
+            font-size: 1.6vw;
+        }
+
+        .bbutton button:hover {
+            background-color: grey;
+        }
+
+        .bbutton a {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 1.6vw;
+            text-decoration: none;
+
+
+
+        }
+
+        .bbutton a:hover {
+            background-color: grey;
+        }
+
+        .stt1:hover {
+            background-color: black;
+        }
+
+        .Button a {
+            background-color: #4caf50;
+            color: black;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+
+        }
+
+        .Button a:hover {
+            color: whitesmoke;
+        }
+
+
+
+
+        td,
+        th {
+            border: 1px solid black;
+            font-size: 1.5vw;
+            text-align: center;
+        }
+
+        table {
+            margin: 2vh 2vw;
+            border: 3px solid black;
+
+        }
+
+        .Button {
+            background-color: #4caf50;
+            color: black;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: larger;
+            text-decoration: none;
+
+        }
+
+        .Button:hover {
+            color: whitesmoke;
+        }
+    </style>
+</head>
+
+<body style="background-color: #f4f4f4;">
+    {% if user.is_authenticated %}
+    <div class="Navbar-1">
+        <p style="font-size: 3vw;margin-left: 1vw;">Kapasia Residency</p>
+        <div style="margin-left: 40vw;display: flex;flex-direction: row;">
+            <a style="font-size: 2.5vw;">Hello {{user.username}}</a>
+            <div class="Logg">
+                <a style="margin-left: 4vw;" href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+    </div>
+    <div style="display: flex;flex-direction: row;">
+        <div class="Navbar-2">
+            <ul>
+                <li><a href="/home/">Dashboard</a></li>
+                <li><a href="/houses/">Houses</a></li>
+                <li><a class="active" href="/tenant/">Tenants</a></li>
+                <li><a href="/payment_page/">Payments</a></li>
+                <li><a href="/old_records/">Old Records</a></li>
+                <li><a href="/Dues/">Dues</a></li>
+
+            </ul>
+        </div>
+    </div>
+    <div id="Print" class="Box"
+        style="background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);  margin-top: 10%; margin-left: 17vw;width: 80%;height:100%;padding-bottom: 10vh;">
+        <div>
+            <h1 style="text-align: center;text-decoration: underline;font-size: 3vw;">Checkout Page</h1>
+            <div style="background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);  margin: 2vh 1vw;padding: 2vh 2vw; border-radius: 10px;">
+                <h2 style="text-align: center;margin: 0;font-size: 3vw;">Room No => {{Data.Room_No}}</h2>
+
+
+                <h1 style="text-align: center;text-decoration: underline;font-size: 2vw;">
+                    Name => {{Data.Name}}
+                </h1>
+                <div>
+
+                    <div style="background-color: #fff;
+                    border-radius: 8px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);  border-radius: 10px;padding: 2vh 2vw;">
+                        <div
+                            style="background-color: #fff;
+                        border-radius: 8px;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); border-radius: 10px;margin: 2vh 15vw;padding: 2vh 0vw;  ">
+                            <h2 style="text-align: center;text-decoration: underline;margin: 0;font-size: 2.5vw;">Total
+                                Payable
+                                Amount</h2>
+                            <h2 style="text-align: center;font-size: 2.5vw;margin: 0;" id="result"></h2>
+
+
+                        </div>
+                        <div style="padding: 2vh 5vw;border-radius: 10px;">
+                            <table>
+                                <tr>
+                                    <th>Tenant Id</th>
+                                    <th>House</th>
+                                    <th>Rent</th>
+                                    <th>Advance</th>
+                                    <th>Check-in Date</th>
+
+                                    <th>Total Month</th>
+                                <tr>
+                                    <td>{{Data.id}}</td>
+                                    <td>{{Data.House_Name}}</td>
+                                    <td id="Rent">{{Data.Rent}}</td>
+                                    <td>{{Data.Advance}}</td>
+                                    <td id="month">{{Data.Arrived_Month}}</td>
+
+                                    <td id="Total-month"></td>
+                                </tr>
+                                </tr>
+                            </table>
+
+                        </div>
+
+
+
+                    </div>
+                    <div style="margin-top: 2vh;">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <p id="demo" style="text-align: center;text-decoration: underline;color: gray;"></p>
+                            <div class="bbutton">
+                                <button onclick="myFunction(event)" id="Btn">Checkout</button>
+                            </div><br>
+                            <div class="bbutton">
+                                <a href="{{good}}">Add Payment</a>
+                            </div>
+                        </form>
+                        <p style="text-align: center;" id="Alert"></p>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+            </div>
+            <div style="background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);  margin: 5vh 1vw;padding: 2vh 0vw; border-radius: 10px;">
+                <h1
+                    style="text-align: center;text-decoration: underline;background-color: gray;margin: 0vh 1vw;padding: 2vh 0vw;color: #fff; border-radius: 10px;font-size: 4vw;">
+                    Last Transaction Data</h1>
+                <table>
+                    <tr>
+
+                        <th>Tenant Name</th>
+
+                        <th>Total Rent Paid</th>
+                        <th>Total Bill + Water </th>
+                        <th>Last Rent Paid</th>
+                        <th>Last Bill + Water</th>
+                        <th>Last Month Total</th>
+
+
+                    </tr>
+                    <tr>
+                        <td>
+                            {{Data.Name}}
+                        </td>
+                        <td id="paid">{{Rent}}</td>
+                        <td>{{Bill}}</td>
+                        <td>{{last_rent}}</td>
+                        <td>{{last_bill}}</td>
+                        <td>{{last_total}}</td>
+                    </tr>
+                </table>
+
+            </div>
+
+            <div class="bbutton">
+                <a onclick="printDiv('Print','Tenent-page')">Print</a>
+            </div>
+
+        </div>
+
+        <script>
+
+
+
+            var today = new Date();
+            console.log(today)
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+            today = dd + '-' + mm + '-' + yyyy;
+            var x = document.getElementById("month")
+            console.log(x.textContent)
+            var y = x.textContent
+            console.log(y)
+            const date1 = new Date(y)
+            console.log('Time Entry ->', date1)
+            const date2 = new Date()
+            console.log('Time Now ->', date2)
+            const datediff = date2.getDate() - date1.getDate()
+            const monthdiff = date2.getMonth() - date1.getMonth()
+            const yeardiff = date2.getYear() - date1.getYear()
+            console.log("datediff", datediff)
+
+            console.log("monthdiff:", monthdiff)
+            console.log("yeardiff:", yeardiff)
+
+            z = monthdiff + yeardiff * 12
+            console.log(z)
+            if (date1.getDate() > date2.getDate()) {
+                z = z - 1;
+            }
+            document.getElementById("Total-month").innerHTML = z
+            a = document.getElementById("Rent")
+            var b = a.textContent
+            console.log(a.textContent)
+            console.log(b)
+            c = Number(b)
+            var total = Number(z) * c
+            console.log(total)
+            Paid = document.getElementById("paid")
+            console.log(Paid.textContent)
+            var final = total - Number(Paid.textContent)
+            console.log(final)
+
+
+            document.getElementById("result").innerHTML = final
+            if (final != 0) {
+                document.getElementById("Btn").disabled = true
+                document.getElementById("Alert").innerHTML = "Take due Amount"
+            }
+            else {
+                document.getElementById("Btn").disabled = false
+            }
+
+
+
+            function Get_data() {
+                var Rent = document.getElementById("rent").value;
+                console.log("Rent => ", Rent);
+                var prev_unit = document.getElementById("unit1").value;
+                var curr_unit = document.getElementById("unit2").value;
+                console.log("Prev Unit => ", prev_unit)
+                console.log("Curr Unit => ", curr_unit);
+                var Unit = document.getElementById("rate").value;
+                console.log("Unit => ", Unit);
+                Reading = Number(curr_unit) - Number(prev_unit);
+                Total_Bill = Reading * Unit;
+                console.log("Total_Bill => ", Total_Bill);
+                Water = document.getElementById("water").value;
+                console.log("Water => ", Water);
+                Final_amount = Number(Rent) + Number(Water) + Number(Total_Bill)
+                console.log("Final_amount => ", Final_amount);
+                document.getElementById("bill").value = Total_Bill;
+                document.getElementById("total").value = Final_amount;
+
+
+
+            }
+            function myFunction(e) {
+                var txt;
+                if (confirm("Are you sure you Want to Checkout the Tenant!")) {
+                    txt = "You pressed OK!";
+                } else {
+                    e.preventDefault();
+                    txt = "You pressed Cancel!";
+                }
+                document.getElementById("demo").innerHTML = txt;
+            }
+
+            function printDiv(divId,
+                title) {
+
+                let mywindow = window.open('', 'PRINT', 'height=650,width=900,top=100,left=150');
+
+                mywindow.document.write(`<html><head><title>${title}</title>`);
+                mywindow.document.write('</head><body >');
+                mywindow.document.write(document.getElementById(divId).innerHTML);
+                mywindow.document.write('</body></html>');
+
+                mywindow.document.close(); // necessary for IE >= 10
+                mywindow.focus(); // necessary for IE >= 10*/
+
+                mywindow.print();
+                mywindow.close();
+
+                return true;
+            }
+
+
+
+
+
+        </script>
+        {% else %}
+        <div style="background-color: white;padding: 5px 0;">
+            <h1 style="text-align: center;text-decoration: underline;">First login to access the page</h1>
+
+        </div>
+        <div class="Button" style="margin-top: 5vh;margin-left: 40vw;">
+            <a style="font-size: 3vw;background-color: green;" href="/">Login Page</a>
+        </div>
+        {% endif %}
+    </div>
+    <footer style="position: fixed; bottom: 0;background-color: #212121;width: 100%;">
+        <h2
+            style="text-align: center;margin: 0;padding: 2vh 0vw;color: #fff;text-decoration: underline;font-size: 2.5vw;">
+            Designed and Developed By Varun Kapasia
+        </h2>
+    </footer>
+
+</body>
+
+</html>

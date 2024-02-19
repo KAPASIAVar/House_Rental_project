@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home-page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .Button a {
+            background-color: #4caf50;
+            color: black;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+
+        }
+
+        .Button a:hover {
+            color: whitesmoke;
+        }
+    </style>
+</head>
+
+<body>
+    {% if user.is_authenticated %}
+    <div>
+        {%include 'header.html'%}
+    </div>
+    <div class="Box" style="position: fixed;margin-top: 10%;margin-left: 17vw;width: 80%;height:100%;background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);">
+        <h1 style="text-align: center;text-decoration: underline;font-size: 4vw;">Welcome back {{user.username}}</h1>
+        <div
+            style="display: flex;flex-direction: row;background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);  margin-left: 2vw;margin-right: 2vw;height: 50%;padding: 3vh 0vw;">
+            <div
+                style="background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);  margin-left: 2vw;border-radius: 10px;width: 30%;">
+                <a style="text-decoration: none;" href="/houses/">
+                    <img src="https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg"
+                        style="width: 100%;height:50% ;border-radius: 10px;">
+                    <p style="text-align: center;color: black;font-size: 3vw;text-decoration: underline;">Total Houses
+                    </p>
+                    <p style="text-align: center;color: black;font-size: 2.5vw;text-decoration: none;">{{Count}}</p>
+                </a>
+            </div>
+            <div
+                style="background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); margin-left: 2vw;border-radius: 10px;width: 30%;">
+                <a style="text-decoration: none;" href="/tenant/">
+                    <img src="https://www.aapkaconsultant.com/blog/wp-content/uploads/2018/01/TENANT.jpg"
+                        style="width: 100%;height:50% ;border-radius: 10px;">
+                    <p style="text-align: center;color: black;font-size: 3vw;text-decoration: underline;">Total Tenants
+                    </p>
+                    <p style="text-align: center;color: black;font-size: 2.5vw;text-decoration: none;">{{Y}}</p>
+                </a>
+            </div>
+            <div
+                style="background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); margin-left: 2vw;border-radius: 10px;width: 30%;margin-right: 2vw;">
+                <a style="text-decoration: none;" href="/payment_page/">
+                    <img src="https://www.simplepayments.in/assets/img/intro.jpg"
+                        style="width: 100%;height:50% ;border-radius: 10px;">
+                    <p style="text-align: center;color: black;font-size: 3vw;text-decoration: underline;">Total Payments
+                    </p>
+                    <p style="text-align: center;color: black;font-size: 2.5vw;text-decoration: none;">₹{{Amount}}</p>
+                </a>
+            </div>
+
+
+        </div>
+
+
+    </div>
+    <footer style="position: fixed; bottom: 0;background-color: #212121;width: 100%;">
+        <h2 style="text-align: center;margin: 0;padding: 2vh 0vw;color: #fff;text-decoration: underline;font-size: 2.5vw;">
+            Designed and Developed By Varun Kapasia
+        </h2>
+    </footer>
+    
+    {% else %}
+    <div style="background-color: white;padding: 5px 0;">
+        <h1 style="text-align: center;text-decoration: underline;">First login to access the page</h1>
+
+    </div>
+    <div class="Button" style="margin-top: 5vh;margin-left: 40vw;">
+        <a style="font-size: 3vw;background-color: green;" href="/">Login Page</a>
+    </div>
+
+    {% endif %}
+</body>
+
+</html>

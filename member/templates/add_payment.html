@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add-Payment-page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .Navbar-1 {
+            display: flex;
+            flex-direction: row;
+            background-color: whitesmoke;
+            position: fixed;
+            width: 100%;
+            z-index: 1;
+            top: 0;
+            background: linear-gradient(to left, #33ccff 0%, #ff99cc 100%);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+
+        }
+
+
+
+        .Logg a {
+            font-size: 2.5vw;
+            text-decoration: none;
+            color: black;
+        }
+
+        .Logg a:hover {
+            color: grey;
+        }
+
+        .Navbar-2 ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 15%;
+            background-color: #f1f1f1;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .Navbar-2 li a {
+            display: block;
+            color: #000;
+            padding: 8px 16px;
+            text-decoration: none;
+            font-size: 2.5vw;
+        }
+
+        .Navbar-2 li a.active {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        .Navbar-2 li a:hover:not(.active) {
+            background-color: #555;
+            color: white;
+        }
+
+        .Navbar-2 {
+            position: fixed;
+            margin-top: 10%;
+        }
+
+        .stt1 {
+            font-size: 2vw;
+            background-color: #555;
+            color: white;
+            text-decoration: none;
+            padding-top: 1vh;
+            padding-bottom: 1vh;
+            padding-left: 1vw;
+            padding-right: 1vw;
+            border-radius: 10px;
+
+
+        }
+
+        .stt1:hover {
+            background-color: black;
+        }
+
+        .Button {
+            background-color: #4caf50;
+            color: black;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 1.5vw;
+
+        }
+
+        .Button:hover {
+            color: whitesmoke;
+        }
+
+        .dddd input {
+            font-size: 1.5vw;
+        }
+
+        .dddd select {
+            font-size: 1.5vw;
+        }
+    </style>
+</head>
+
+<body style="background-color: #f4f4f4;">
+    {% if user.is_authenticated %}
+    <div class="Navbar-1">
+        <p style="font-size: 3vw;margin-left: 1vw;">Kapasia Residency</p>
+        <div style="margin-left: 40vw;display: flex;flex-direction: row;">
+            <a style="font-size: 2.5vw;">Hello {{user.username}}</a>
+            <div class="Logg">
+                <a style="margin-left: 4vw;" href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+    </div>
+    <div style="display: flex;flex-direction: row;">
+        <div class="Navbar-2">
+            <ul>
+                <li><a href="/home/">Dashboard</a></li>
+                <li><a href="/houses/">Houses</a></li>
+                <li><a href="/tenant/">Tenants</a></li>
+                <li><a class="active" href="/payment_page/">Payments</a></li>
+                <li><a href="/old_records/">Old Records</a></li>
+                <li><a href="/Dues/">Dues</a></li>
+
+            </ul>
+        </div>
+        <div class="Box"
+            style="background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);  margin-top: 10%;margin-left: 17vw;width: 80%;height:100%;padding-bottom: 10vh;">
+            <div>
+                <h1 style="text-align: center;text-decoration: underline;">Adding Payment</h1>
+
+            </div>
+            <div
+                style="border-radius: 10px;background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);  margin-left: 2vw;margin-right: 2vw; margin-top: 5vh;padding-top: 5vh;padding-left: 5vw;font-size: 2vw;padding-bottom: 2vh;">
+                <div class="dddd">
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <label for="">Name : </label>
+                        <select name="name" id="name">
+                            {% if Tenant %}
+                            <option value="None">None</option>
+                            {% for y in Tenant %}
+                            <option value="{{y.Name}}">{{y.Name}}</option>
+                            {% endfor %}
+
+
+                            {% endif %}
+
+                        </select>
+                        <br><br>
+                        <label for="">House Name : </label>
+                        <select name="house" id="house">
+                            <option value="None">None</option>
+                            {% if House %}
+                            {% for y in House %}
+                            <option value="{{y.house_name}}">{{y.house_name}}</option>
+
+
+                            {% endfor %}
+                            {% endif %}
+
+
+
+                        </select><br><br>
+                        <label for="">Paying Amount : </label>
+                        <input type="number" name="rent" id="rent"><br><br>
+                        <label for="">Rent Month : </label>
+                        <input type="date" name="date" id="date" required><br><br>
+                        <label for="">Payment Date : </label>
+                        <input type="date" name="date1" id="date1" required><br><br>
+                        <label for="">Payment Mode : </label>
+                        <select name="mode" id="mode">
+                            <option value="Cash">Cash</option>
+                            <option value="Online">Online</option>
+                        </select><br><br>
+                        <label for="">Payment Reciept : </label>
+                        <input type="file" name="img" id="img"><br><br>
+                        <label for="">Prev Unit : </label>
+                        <input type="number" name="unit1" id="unit1" value="0"><br><br>
+                        <label for="">Curr Unit : </label>
+                        <input type="number" name="unit2" id="unit2" value="0"><br><br>
+                        <label for="">Bill Total : </label>
+                        <input type="number" name="bill" id="bill"><br><br>
+                        <label for="">Unit Price : </label>
+                        <select name="rate" id="rate">
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                        </select><br><br>
+                        <label for="">Water Bill : </label>
+                        <input type="number" name="water" id="water" value="100"><br><br>
+                        <label for="">Final Amount : </label>
+                        <input type="number" name="total" id="total"><br><br>
+                        <a class="Button" onclick="Get_data()">Get Total</a>
+                        <input onclick="myFunction()" class="Button" type="submit" name="" id="" value="Submit">
+                        <p id="demo"></p>
+
+
+
+
+
+
+                    </form>
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+    {% else %}
+    <div style="background-color: white;padding: 5px 0;">
+        <h1 style="text-align: center;text-decoration: underline;">First login to access the page</h1>
+
+    </div>
+    <div class="Button" style="margin-top: 5vh;margin-left: 40vw;">
+        <a style="font-size: 3vw;background-color: green;" href="/">Login Page</a>
+    </div>
+    {% endif %}
+    <script>
+
+        var today = new Date();
+        console.log(today)
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById("date1").value = today;
+        function myFunction() {
+            var txt;
+            if (confirm("Press a button!")) {
+                txt = "You pressed OK!";
+            } else {
+                txt = "You pressed Cancel!";
+            }
+            document.getElementById("demo").innerHTML = txt;
+        }
+
+        function Get_data() {
+            var Rent = document.getElementById("rent").value;
+            console.log("Rent => ", Rent);
+            var prev_unit = document.getElementById("unit1").value;
+            var curr_unit = document.getElementById("unit2").value;
+            console.log("Prev Unit => ", prev_unit)
+            console.log("Curr Unit => ", curr_unit);
+            var Unit = document.getElementById("rate").value;
+            console.log("Unit => ", Unit);
+            Reading = Number(curr_unit) - Number(prev_unit);
+            Total_Bill = Reading * Unit;
+            console.log("Total_Bill => ", Total_Bill);
+            Water = document.getElementById("water").value;
+            console.log("Water => ", Water);
+            Final_amount = Number(Rent) + Number(Water) + Number(Total_Bill)
+            console.log("Final_amount => ", Final_amount);
+            document.getElementById("bill").value = Total_Bill;
+            document.getElementById("total").value = Final_amount;
+
+
+
+        }
+
+
+
+    </script>
+    <footer style="position: fixed; bottom: 0;background-color: #212121;width: 100%;">
+        <h2
+            style="text-align: center;margin: 0;padding: 2vh 0vw;color: #fff;text-decoration: underline;font-size: 2.5vw;">
+            Designed and Developed By Varun Kapasia
+        </h2>
+    </footer>
+
+</body>
+
+</html>
